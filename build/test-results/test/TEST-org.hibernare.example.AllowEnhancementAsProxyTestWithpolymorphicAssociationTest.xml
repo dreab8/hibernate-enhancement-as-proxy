@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.hibernare.example.AllowEnhancementAsProxyTestWithpolymorphicAssociationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-07-09T13:48:10" hostname="wolverine" time="0.276">
+  <properties/>
+  <testcase name="polymorphycAssociationTest" classname="org.hibernare.example.AllowEnhancementAsProxyTestWithpolymorphicAssociationTest" time="0.276"/>
+  <system-out><![CDATA[14:48:09,215  INFO Version:44 - HHH000412: Hibernate ORM core version 5.4.18.Final
+14:48:09,221  INFO Environment:184 - HHH000205: Loaded properties from resource hibernate.properties: {hibernate.connection.driver_class=org.h2.Driver, hibernate.cache.use_query_cache=true, hibernate.service.allow_crawling=false, hibernate.max_fetch_depth=5, hibernate.dialect=org.hibernate.dialect.H2Dialect, hibernate.format_sql=true, hibernate.cache.region.factory_class=org.hibernate.cache.infinispan.InfinispanRegionFactory, hibernate.connection.username=sa, hibernate.cache.region_prefix=hibernate.test, hibernate.connection.url=jdbc:h2:mem:test, hibernate.bytecode.use_reflection_optimizer=false, hibernate.show_sql=true, hibernate.connection.password=****, hibernate.session.events.log=true}
+14:48:09,417  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+14:48:09,659  INFO CustomRunner:116 - BeforeClass: org.hibernare.example.AllowEnhancementAsProxyTestWithpolymorphicAssociationTest
+14:48:09,699  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+14:48:09,738  WARN CachingRegionFactory:48 - org.hibernate.testing.cache.CachingRegionFactory should be only used for testing.
+14:48:09,753  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+14:48:09,813  WARN pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+14:48:09,815  INFO pooling:115 - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:mem:test]
+14:48:09,815  INFO pooling:124 - HHH10001001: Connection properties: {user=sa, password=****}
+14:48:09,815  INFO pooling:129 - HHH10001003: Autocommit mode: false
+14:48:09,817  INFO DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+14:48:09,966  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+14:48:10,490 DEBUG SQL:128 - drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$DomesticCustomer CASCADE 
+Hibernate: drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$DomesticCustomer CASCADE 
+14:48:10,493  INFO access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5df3bfd8] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+14:48:10,496 DEBUG SQL:128 - drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$ForeignCustomer CASCADE 
+Hibernate: drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$ForeignCustomer CASCADE 
+14:48:10,498 DEBUG SQL:128 - drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$Order CASCADE 
+Hibernate: drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$Order CASCADE 
+14:48:10,502 DEBUG SQL:128 - create table AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$DomesticCustomer (id integer not null, name varchar(255), primary key (id))
+Hibernate: create table AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$DomesticCustomer (id integer not null, name varchar(255), primary key (id))
+14:48:10,504  INFO access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@69718bc2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+14:48:10,510 DEBUG SQL:128 - create table AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$ForeignCustomer (id integer not null, name varchar(255), primary key (id))
+Hibernate: create table AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$ForeignCustomer (id integer not null, name varchar(255), primary key (id))
+14:48:10,513 DEBUG SQL:128 - create table AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$Order (id integer not null, customer_id integer, primary key (id))
+Hibernate: create table AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$Order (id integer not null, customer_id integer, primary key (id))
+14:48:10,520  INFO JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.JBossStandAloneJtaPlatform]
+14:48:10,605  INFO CustomRunner:123 - Test: polymorphycAssociationTest
+14:48:10,750 DEBUG SQL:128 - insert into AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$DomesticCustomer (name, id) values (?, ?)
+Hibernate: insert into AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$DomesticCustomer (name, id) values (?, ?)
+14:48:10,762 TRACE BasicBinder:52 - binding parameter [1] as [VARCHAR] - [null]
+14:48:10,764 TRACE BasicBinder:64 - binding parameter [2] as [INTEGER] - [2]
+14:48:10,790 DEBUG SQL:128 - insert into AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$Order (customer_id, id) values (?, ?)
+Hibernate: insert into AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$Order (customer_id, id) values (?, ?)
+14:48:10,799 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [2]
+14:48:10,800 TRACE BasicBinder:64 - binding parameter [2] as [INTEGER] - [1]
+14:48:10,804  INFO StatisticalLoggingSessionEventListener:258 - Session Metrics {
+    33594 nanoseconds spent acquiring 1 JDBC connections;
+    85979 nanoseconds spent releasing 1 JDBC connections;
+    9680256 nanoseconds spent preparing 2 JDBC statements;
+    896557 nanoseconds spent executing 2 JDBC statements;
+    0 nanoseconds spent executing 0 JDBC batches;
+    0 nanoseconds spent performing 0 L2C puts;
+    0 nanoseconds spent performing 0 L2C hits;
+    0 nanoseconds spent performing 0 L2C misses;
+    87704659 nanoseconds spent executing 1 flushes (flushing a total of 2 entities and 0 collections);
+    0 nanoseconds spent executing 0 partial-flushes (flushing a total of 0 entities and 0 collections)
+}
+14:48:10,823 DEBUG SQL:128 - select allowenhan0_.id as id1_3_0_, allowenhan0_.customer_id as customer2_3_0_ from AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$Order allowenhan0_ where allowenhan0_.id=?
+Hibernate: select allowenhan0_.id as id1_3_0_, allowenhan0_.customer_id as customer2_3_0_ from AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$Order allowenhan0_ where allowenhan0_.id=?
+14:48:10,824 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [1]
+14:48:10,830 TRACE BasicExtractor:60 - extracted value ([customer2_3_0_] : [INTEGER]) - [2]
+14:48:10,838  INFO StatisticalLoggingSessionEventListener:258 - Session Metrics {
+    26442 nanoseconds spent acquiring 1 JDBC connections;
+    67058 nanoseconds spent releasing 1 JDBC connections;
+    345651 nanoseconds spent preparing 1 JDBC statements;
+    447816 nanoseconds spent executing 1 JDBC statements;
+    0 nanoseconds spent executing 0 JDBC batches;
+    0 nanoseconds spent performing 0 L2C puts;
+    0 nanoseconds spent performing 0 L2C hits;
+    0 nanoseconds spent performing 0 L2C misses;
+    111874 nanoseconds spent executing 1 flushes (flushing a total of 1 entities and 0 collections);
+    0 nanoseconds spent executing 0 partial-flushes (flushing a total of 0 entities and 0 collections)
+}
+14:48:10,879  INFO SchemaDropperImpl$DelayedDropActionImpl:526 - HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+14:48:10,880 DEBUG SQL:128 - drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$DomesticCustomer CASCADE 
+Hibernate: drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$DomesticCustomer CASCADE 
+14:48:10,881  INFO access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@11dd0ec7] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+14:48:10,884 DEBUG SQL:128 - drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$ForeignCustomer CASCADE 
+Hibernate: drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$ForeignCustomer CASCADE 
+14:48:10,885 DEBUG SQL:128 - drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$Order CASCADE 
+Hibernate: drop table if exists AllowEnhancementAsProxyTestWithpolymorphicAssociationTest$Order CASCADE 
+14:48:10,887  INFO pooling:418 - HHH10001008: Cleaning up connection pool [jdbc:h2:mem:test]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+def hibernateGroupId = 'org.hibernate'
+
+def hibernateVersion = '5.4.18.Final'
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.13'
+    compile group: hibernateGroupId, name: 'hibernate-core', version: hibernateVersion
+    compile group: hibernateGroupId, name: 'hibernate-testing', version: hibernateVersion
+    compile group: "com.h2database", name: "h2", version: "1.4.200"
+
+}
