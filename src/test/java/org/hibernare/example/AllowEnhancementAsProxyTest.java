@@ -44,22 +44,23 @@ public class AllowEnhancementAsProxyTest extends AbstractAllowEnhancementAsProxy
 		inTransaction(
 				session -> {
 					/*
-					table AEntity (A_ID bigint not null, aString varchar(255), primary key (A_ID))
-					table AEntity (A_ID bigint not null, aString varchar(255), primary key (A_ID))
+					table User (A_ID bigint not null, ....., primary key (A_ID))
+					table Address (B_ID bigint not null, ...., user_A_ID bigint, primary key (B_ID))
 
-					BEntity contains the Fk so we DO NOT need @LazyToOne(LazyToOneOption.NO_PROXY)
-					on its @OneToOne in order to avoid an extra query (to create a Enhanced proxy for AEntity we need its ID that is a_A_ID).
+					Address contains the Fk so we DO NOT need @LazyToOne(LazyToOneOption.NO_PROXY)
+					on its @OneToOne in order to avoid an extra query (to create a Enhanced proxy for User we need its ID an it is in Address table).
 				 	*/
 					Address address = session.get( Address.class, 2L );
 					/*
-						select example1te0_.B_ID as b_id1_1_0_, example1te0_.a_A_ID as a_a_id2_1_0_ from BEntity example1te0_ where example1te0_.B_ID=?
+						select allowenhan0_.B_ID as b_id1_0_0_, allowenhan0_.city as city2_0_0_, allowenhan0_.street as street3_0_0_, allowenhan0_.user_A_ID as user_a_i5_0_0_, allowenhan0_.zipcode as zipcode4_0_0_
+						from Address allowenhan0_
+						where allowenhan0_.B_ID=?
 					 */
 					assertThat( statistics.getPrepareStatementCount(), CoreMatchers.is( 1L ) );
 
 					assertIsEnhancedInstance( address );
 
-					// Being AEntity an EnhancedProxy it results as initialized for the LazyAttributeLoadingInterceptor of
-					// the bEntity enhanced class but only the id value is initialized
+					// Being User an EnhancedProxy it results initialized but only the id value is initialized
 					assertTrue( Hibernate.isPropertyInitialized( address, "user" ) );
 
 					User user = address.getUser();
@@ -83,8 +84,8 @@ public class AllowEnhancementAsProxyTest extends AbstractAllowEnhancementAsProxy
 		inTransaction(
 				session -> {
 					/*
-					table AEntity (A_ID bigint not null, aString varchar(255), primary key (A_ID))
-					table BEntity (B_ID bigint not null, aString varchar(255), a_A_ID bigint, primary key (B_ID))
+					table User (A_ID bigint not null, ....., primary key (A_ID))
+					table Address (B_ID bigint not null, ...., user_A_ID bigint, primary key (B_ID))
 
 					BEntity contains the Fk so we DO NOT need @LazyToOne(LazyToOneOption.NO_PROXY)
 					on its @OneToOne in order to avoid an extra query (to create a Enhanced proxy for AEntity we need its ID that is a_A_ID).
@@ -123,17 +124,22 @@ public class AllowEnhancementAsProxyTest extends AbstractAllowEnhancementAsProxy
 		inTransaction(
 				session -> {
 					/*
-					table AEntity (A_ID bigint not null, aString varchar(255), primary key (A_ID))
-					table BEntity (B_ID bigint not null, aString varchar(255), a_A_ID bigint, primary key (B_ID))
+						table User (A_ID bigint not null, ....., primary key (A_ID))
+						table Address (B_ID bigint not null, ...., user_A_ID bigint, primary key (B_ID))
 
-					AEntity table does not contains the Fk so we need @LazyToOne(LazyToOneOption.NO_PROXY)
-					on its @OneToOne in order to avoid an extra query (to create a Enhanced proxy for BEntity we need its ID).
+						User table does not contains the Fk so we need @LazyToOne(LazyToOneOption.NO_PROXY)
+						on its @OneToOne in order to avoid an extra query.
 				 	*/
 					User user = session.get( User.class, 1L );
 					assertIsEnhancedInstance( user );
 					assertFalse( Hibernate.isPropertyInitialized( user, "address" ) );
 
 					assertThat( statistics.getPrepareStatementCount(), CoreMatchers.is( 1L ) );
+
+					user.getAddress();
+					// accessing the address triggers a query
+					assertThat( statistics.getPrepareStatementCount(), CoreMatchers.is( 2L ) );
+
 				}
 		);
 	}
@@ -144,13 +150,7 @@ public class AllowEnhancementAsProxyTest extends AbstractAllowEnhancementAsProxy
 		statistics.clear();
 		inTransaction(
 				session -> {
-					/*
-					table AEntity (A_ID bigint not null, aString varchar(255), primary key (A_ID))
-					table BEntity (B_ID bigint not null, aString varchar(255), a_A_ID bigint, primary key (B_ID))
 
-					AEntity table does not contains the Fk so we need @LazyToOne(LazyToOneOption.NO_PROXY)
-					on its @OneToOne in order to avoid an extra query (to create a Enhanced proxy for BEntity we need its ID).
-				 	*/
 					User user = session.load( User.class, 1L );
 					assertIsEnhancedAsProxyInstance( user );
 					assertThat( statistics.getPrepareStatementCount(), CoreMatchers.is( 0L ) );
